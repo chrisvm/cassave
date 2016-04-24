@@ -1,3 +1,4 @@
 .idea/
 build/**
-deps/v8/out
+deps/v8
+deps/.gclient_entries

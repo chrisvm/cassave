@@ -15,7 +15,11 @@ cmake_minimum_required(VERSION 3.2)
 project(${PROJECT_NAME})
 include_directories(${INCLUDE_DIR})
 
+
+###################################################################
 ###### v8_test Target #############################################
+###################################################################
+
 set(V8_TEST_TARGET "v8_test")
 set(V8_TEST_SOURCE "${SOURCE_DIR}/v8_test")
 set(SOURCE_FILES
@@ -40,11 +44,15 @@ target_link_libraries(${V8_TEST_TARGET}
 	"${ICU_LIB}/libicui18n.a"
 	"${ICU_LIB}/libicudata.a"
 	"-Wl,--end-group"
-	"pthread"
 	"rt"
-	"dl")
+	"dl"
+	"pthread")
 
+
+#####################################################################
 ###### native_test Target ###########################################
+#####################################################################
+
 set(NATIVE_TEST_TARGET "native_test")
 set(NATIVE_TEST_SOURCE "${SOURCE_DIR}/native_test")
 set(SOURCE_FILES 
