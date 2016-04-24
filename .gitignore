@@ -2,3 +2,4 @@
 build/**
 deps/v8
 deps/.gclient_entries
+deps/.gclient
