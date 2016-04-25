@@ -57,7 +57,7 @@ set(NATIVE_TEST_TARGET "native_test")
 set(NATIVE_TEST_SOURCE "${SOURCE_DIR}/native_test")
 set(SOURCE_FILES 
 	"${NATIVE_TEST_SOURCE}/native_test.cpp"
-	"${NATIVE_TEST_SOURCE}/array_buff_alloc.cpp")
+	"${NATIVE_TEST_SOURCE}/array_buff_alloc.cpp" src/native_test/util_methods.cpp src/native_test/util_methods.h src/native_test/option_parser.cpp src/native_test/option_parser.h)
 
 add_executable(${NATIVE_TEST_TARGET} ${SOURCE_FILES})
 set_target_properties(${NATIVE_TEST_TARGET} 

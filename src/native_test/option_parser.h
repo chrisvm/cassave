@@ -22,6 +22,7 @@ public:
 
     bool verbose();
     bool error();
+    char* script();
 };
 
 

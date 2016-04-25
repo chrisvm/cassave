@@ -49,3 +49,4 @@ void option_parser::parse_options(int argc, char* argv[]) {
 
 bool option_parser::error() { return this->error_; }
 bool option_parser::verbose() { return this->verbose_; }
+char* option_parser::script() { return this->script_path_; }
