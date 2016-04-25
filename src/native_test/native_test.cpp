@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <assert.h>
 
 #include <include/libplatform/libplatform.h>
@@ -9,6 +8,7 @@
 #include "./array_buff_alloc.h"
 #include "./util_methods.h"
 #include "./option_parser.h"
+#include "./global_funcs.h"
 
 using namespace v8;
 using namespace std;
@@ -18,17 +18,12 @@ using namespace std;
 Platform* init(int argc, char* argv[]);
 void deinit(Platform *&platform);
 
-// create an Isolate and set array buffer allocator
+// methods
 Isolate* create_isolate();
 Local<Context> create_context(Isolate *isolate);
 MaybeLocal<String> to_v8_string(Isolate *isolate, char *c_str, int length);
-const char* ToCString(const String::Utf8Value& value);
 void ReportException(Isolate* isolate, TryCatch* try_catch);
-bool ExecuteString(Isolate* isolate, Local<String> source,
-                   Local<Value> name, bool print_result,
-                   bool report_exceptions);
-void Print(const FunctionCallbackInfo<Value>& args);
-
+bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
 
 int main(int argc, char* argv[]) {
 	// init v8 and create platform
@@ -80,17 +75,17 @@ int main(int argc, char* argv[]) {
 
             // convert to v8 string
             Local<String> string_source;
-            to_v8_string(isolate, script_source, length).ToLocal(&string_source);
+            if (to_v8_string(isolate, script_source, length).ToLocal(&string_source)) {
+                // execute script
+                Local<String> script_name = String::NewFromUtf8(isolate, parser.script());
+                bool success = ExecuteString(isolate, string_source, script_name, false, true);
 
-            // execute script
-            Local<String> script_name = String::NewFromUtf8(isolate, parser.script());
-            bool success = ExecuteString(isolate, string_source, script_name, false, true);
+                while (platform::PumpMessageLoop(platform, isolate))
+                    continue;
 
-            while (platform::PumpMessageLoop(platform, isolate))
-                continue;
-
-            if (!success) {
-                return 1;
+                if (!success) {
+                    return 1;
+                }
             }
         }
     } else {
@@ -139,28 +134,11 @@ Local<Context> create_context(Isolate *isolate) {
             .ToLocalChecked();
     Local<FunctionTemplate> print_tmpl = FunctionTemplate::New(isolate, Print);
 
+    // set global methods
     global->Set(isolate, "print", FunctionTemplate::New(isolate, Print));
-
+    global->Set(isolate, "printl", FunctionTemplate::New(isolate, PrintL));
+    global->Set(isolate, "printf", FunctionTemplate::New(isolate, PrintFormat));
     return Context::New(isolate, NULL, global);
-}
-
-void Print(const FunctionCallbackInfo<Value>& args) {
-    bool first = true;
-    for (int i = 0; i < args.Length(); i++) {
-        HandleScope handle_scope(args.GetIsolate());
-
-        if (first) {
-            first = false;
-        } else {
-            printf(" ");
-        }
-
-        String::Utf8Value str(args[i]);
-        const char* c_str = ToCString(str);
-        printf("%s", c_str);
-    }
-    printf("\n");
-    fflush(stdout);
 }
 
 MaybeLocal<String> to_v8_string(Isolate *isolate, char *c_str, int length) {
@@ -172,9 +150,7 @@ MaybeLocal<String> to_v8_string(Isolate *isolate, char *c_str, int length) {
     return String::NewFromUtf8(isolate, c_str, NewStringType::kNormal, static_cast<int>(length));
 }
 
-bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name,
-                   bool print_result, bool report_exceptions)
-{
+bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name, bool print_result, bool report_exceptions) {
     TryCatch try_catch(isolate);
     ScriptOrigin origin(name);
     Local<Context> context(isolate->GetCurrentContext());
@@ -199,7 +175,7 @@ bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name,
                 // If all went well and the result wasn't undefined then print
                 // the returned value.
                 String::Utf8Value str(result);
-                const char* cstr = ToCString(str);
+                const char* cstr = UtilMethods::ToCString(str);
                 printf("%s\n", cstr);
             }
             return true;
@@ -210,7 +186,7 @@ bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name,
 void ReportException(Isolate* isolate, TryCatch* try_catch) {
     HandleScope handle_scope(isolate);
     String::Utf8Value exception(try_catch->Exception());
-    const char* exception_string = ToCString(exception);
+    const char* exception_string = UtilMethods::ToCString(exception);
     Local<Message> message = try_catch->Message();
     if (message.IsEmpty()) {
         // V8 didn't provide any extra information about this error; just
@@ -220,14 +196,14 @@ void ReportException(Isolate* isolate, TryCatch* try_catch) {
         // Print (filename):(line number): (message).
         String::Utf8Value filename(message->GetScriptOrigin().ResourceName());
         Local<Context> context(isolate->GetCurrentContext());
-        const char* filename_string = ToCString(filename);
+        const char* filename_string = UtilMethods::ToCString(filename);
         int linenum = message->GetLineNumber(context).FromJust();
         fprintf(stderr, "%s:%i: %s\n", filename_string, linenum, exception_string);
 
         // Print line of source code.
         String::Utf8Value sourceline(
                 message->GetSourceLine(context).ToLocalChecked());
-        const char* sourceline_string = ToCString(sourceline);
+        const char* sourceline_string = UtilMethods::ToCString(sourceline);
         fprintf(stderr, "%s\n", sourceline_string);
 
         // Print wavy underline (GetUnderline is deprecated).
@@ -245,12 +221,8 @@ void ReportException(Isolate* isolate, TryCatch* try_catch) {
             stack_trace_string->IsString() &&
             Local<String>::Cast(stack_trace_string)->Length() > 0) {
             String::Utf8Value stack_trace(stack_trace_string);
-            const char* stack_trace_string = ToCString(stack_trace);
+            const char* stack_trace_string = UtilMethods::ToCString(stack_trace);
             fprintf(stderr, "%s\n", stack_trace_string);
         }
     }
-}
-
-const char* ToCString(const String::Utf8Value& value) {
-    return *value ? *value : "<string conversion failed>";
 }

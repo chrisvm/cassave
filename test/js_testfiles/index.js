@@ -1,8 +1,13 @@
-function say_hello(name) {
-    return "Hello, " + name + ".";
+"use strict";
+
+class SayHello {
+    constructor(name) {
+        this.name = name;
+    }
+
+    say_hello() {
+        printf("Hello, %!\n", this.name);
+    }
 }
 
-function main() {
-    print(say_hello("Christian"));
-}
-main();
+new SayHello("Christian").say_hello();

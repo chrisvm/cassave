@@ -61,3 +61,7 @@ char* UtilMethods::fileToBuffer(char const * file) {
 
     return buf;
 }
+
+const char* UtilMethods::ToCString(String::Utf8Value& value) {
+    return *value ? *value : "<string conversion failed>";
+}
