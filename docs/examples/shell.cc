@@ -120,8 +120,7 @@ v8::Local<v8::Context> CreateShellContext(v8::Isolate* isolate) {
   v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(isolate);
   // Bind the global 'print' function to the C++ Print callback.
   global->Set(
-      v8::String::NewFromUtf8(isolate, "print", v8::NewStringType::kNormal)
-          .ToLocalChecked(),
+      v8::String::NewFromUtf8(isolate, "print", v8::NewStringType::kNormal).ToLocalChecked(),
       v8::FunctionTemplate::New(isolate, Print));
   // Bind the global 'read' function to the C++ Read callback.
   global->Set(v8::String::NewFromUtf8(
@@ -265,6 +264,7 @@ v8::MaybeLocal<v8::String> ReadFile(v8::Isolate* isolate, const char* name) {
   fclose(file);
   v8::MaybeLocal<v8::String> result = v8::String::NewFromUtf8(
       isolate, chars, v8::NewStringType::kNormal, static_cast<int>(size));
+
   delete[] chars;
   return result;
 }
