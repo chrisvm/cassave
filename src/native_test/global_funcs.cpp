@@ -76,6 +76,7 @@ void PrintFormat(const FunctionCallbackInfo<Value>& args) {
                 } else {
                     if (format_data.empty()) {
                         isolate->ThrowException(String::NewFromUtf8(isolate, "Missing printf values for format"));
+                        return;
                     }
 
                     printf("%s", format_data.front());
