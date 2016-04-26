@@ -5,7 +5,7 @@ set(SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
 set(V8_LIB "${CMAKE_CURRENT_LIST_DIR}/deps/v8/out/x64.release/obj.target/tools/gyp")
 set(ICU_LIB "${CMAKE_CURRENT_LIST_DIR}/deps/v8/out/x64.release/obj.target/third_party/icu")
 
-set(PROJECT_NAME "grapefruit.js")
+set(PROJECT_NAME "cassave.js")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/build")
 
@@ -60,7 +60,8 @@ set(SOURCE_FILES
 	"${NATIVE_TEST_SOURCE}/array_buff_alloc.cpp"
 	"${NATIVE_TEST_SOURCE}/util_methods.cpp"
 	"${NATIVE_TEST_SOURCE}/option_parser.cpp"
-	"${NATIVE_TEST_SOURCE}/global_funcs.cpp")
+	"${NATIVE_TEST_SOURCE}/global_funcs.cpp"
+	"${NATIVE_TEST_SOURCE}/v8_methods.cpp")
 
 add_executable(${NATIVE_TEST_TARGET} ${SOURCE_FILES})
 set_target_properties(${NATIVE_TEST_TARGET} 
@@ -75,7 +76,7 @@ target_link_libraries(${NATIVE_TEST_TARGET}
 	"-Wl,--start-group"
 	"${V8_LIB}/libv8_base.a" 
 	"${V8_LIB}/libv8_libbase.a"
-	"${V8_LIB}/libv8_external_snapshot.a"
+	"${V8_LIB}/libv8_nosnapshot.a"
 	"${V8_LIB}/libv8_libplatform.a"
 	"${ICU_LIB}/libicuuc.a"
 	"${ICU_LIB}/libicui18n.a"

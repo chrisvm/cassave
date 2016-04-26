@@ -2,8 +2,8 @@
 // Created by chrisvm on 04-24-16.
 //
 
-#ifndef GRAPEFRUIT_JS_OPTIONPARSER_H
-#define GRAPEFRUIT_JS_OPTIONPARSER_H
+#ifndef CASSAVE_JS_OPTIONPARSER_H
+#define CASSAVE_JS_OPTIONPARSER_H
 #include <list>
 #include <ctype.h>
 #include <stdlib.h>
@@ -26,4 +26,4 @@ public:
 };
 
 
-#endif //GRAPEFRUIT_JS_OPTIONPARSER_H
+#endif //CASSAVE_JS_OPTIONPARSER_H

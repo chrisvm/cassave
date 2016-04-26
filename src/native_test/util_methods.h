@@ -2,8 +2,8 @@
 // Created by chrisvm on 04-24-16.
 //
 
-#ifndef GRAPEFRUIT_JS_UTIL_METHODS_H
-#define GRAPEFRUIT_JS_UTIL_METHODS_H
+#ifndef CASSAVE_JS_UTIL_METHODS_H
+#define CASSAVE_JS_UTIL_METHODS_H
 
 #include <include/v8.h>
 #include <include/libplatform/libplatform.h>
@@ -21,4 +21,4 @@ namespace std {
     };
 };
 
-#endif //GRAPEFRUIT_JS_UTIL_METHODS_H
+#endif //CASSAVE_JS_UTIL_METHODS_H

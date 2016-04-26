@@ -2,8 +2,8 @@
 // Created by chrisvm on 04-25-16.
 //
 
-#ifndef GRAPEFRUIT_JS_GLOBAL_FUNCS_H
-#define GRAPEFRUIT_JS_GLOBAL_FUNCS_H
+#ifndef CASSAVE_JS_GLOBAL_FUNCS_H
+#define CASSAVE_JS_GLOBAL_FUNCS_H
 #include "include/v8.h"
 #include "include/libplatform/libplatform.h"
 #include "util_methods.h"
@@ -22,4 +22,4 @@ void PrintL(const FunctionCallbackInfo<Value>& args);
 void PrintFormat(const FunctionCallbackInfo<Value>& args);
 
 
-#endif //GRAPEFRUIT_JS_GLOBAL_FUNCS_H
+#endif //CASSAVE_JS_GLOBAL_FUNCS_H
