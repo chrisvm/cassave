@@ -16,14 +16,10 @@ void ReportException(Isolate* isolate, TryCatch* try_catch);
 bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
 
 int main(int argc, char* argv[]) {
-	// init v8 and create platform
-	Platform *platform = init(argc, argv);
-	
-	// create isolate
-	Isolate* isolate = create_isolate();
 
     // check for options
     if (argc > 1) {
+
         // read options
         option_parser parser(argc, argv);
 
@@ -45,6 +41,12 @@ int main(int argc, char* argv[]) {
         if (parser.verbose()) {
             printf("...Openning script \"%s\"\n", parser.script());
         }
+
+        // init v8 and create platform
+        Platform *platform = init(argc, argv);
+
+        // create isolate
+        Isolate* isolate = create_isolate();
 
         // exec script
         int result;
@@ -78,14 +80,16 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
+
+        // delete platform and turn down v8
+        isolate->Dispose();
+        deinit(platform);
+
     } else {
         fprintf(stderr, "script path not given\n");
         return 1;
     }
 
-	// delete platform and turn down v8
-    isolate->Dispose();
-	deinit(platform);
 	return 0;
 }
 
