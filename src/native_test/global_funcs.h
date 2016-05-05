@@ -20,6 +20,6 @@ using namespace std;
 void Print(const FunctionCallbackInfo<Value>& args);
 void PrintL(const FunctionCallbackInfo<Value>& args);
 void PrintFormat(const FunctionCallbackInfo<Value>& args);
-
+void Require(const FunctionCallbackInfo<Value>& args);
 
 #endif //CASSAVE_JS_GLOBAL_FUNCS_H
