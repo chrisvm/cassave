@@ -44,8 +44,8 @@ target_link_libraries(${V8_TEST_TARGET}
 	"${ICU_LIB}/libicui18n.a"
 	"${ICU_LIB}/libicudata.a"
 	"-Wl,--end-group"
-	"rt"
 	"dl"
+    "rt"
 	"pthread")
 
 
@@ -72,11 +72,27 @@ set_target_properties(${NATIVE_TEST_TARGET}
 file(GLOB SNAPSHOT_BINS "${CMAKE_CURRENT_LIST_DIR}/deps/v8/out/x64.release/*.bin")
 file(COPY ${SNAPSHOT_BINS} DESTINATION ${OUTPUT_DIR})
 
-target_link_libraries(${NATIVE_TEST_TARGET} 
+if (APPLE)
+    set(V8_LIB "${INCLUDE_DIR}/out/x64.release")
+    set(ICU_LIB "${V8_LIB}")
+
+    include_directories("${INCLUDE_DIR}/include")
+    target_link_libraries(${NATIVE_TEST_TARGET}
+    "${V8_LIB}/libv8_base.a"
+    "${V8_LIB}/libv8_libbase.a"
+    "${V8_LIB}/libv8_external_snapshot.a"
+    "${V8_LIB}/libv8_libplatform.a"
+    "${ICU_LIB}/libicuuc.a"
+    "${ICU_LIB}/libicui18n.a"
+    "${ICU_LIB}/libicudata.a"
+    "pthread"
+    "dl")
+else()
+    target_link_libraries(${NATIVE_TEST_TARGET} 
 	"-Wl,--start-group"
 	"${V8_LIB}/libv8_base.a" 
 	"${V8_LIB}/libv8_libbase.a"
-	"${V8_LIB}/libv8_nosnapshot.a"
+	"${V8_LIB}/libv8_external_snapshot.a"
 	"${V8_LIB}/libv8_libplatform.a"
 	"${ICU_LIB}/libicuuc.a"
 	"${ICU_LIB}/libicui18n.a"
@@ -85,3 +101,4 @@ target_link_libraries(${NATIVE_TEST_TARGET}
 	"pthread"
 	"rt"
 	"dl")
+endif()
