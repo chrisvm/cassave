@@ -16,47 +16,14 @@ project(${PROJECT_NAME})
 include_directories(${INCLUDE_DIR})
 
 
-###################################################################
-###### v8_test Target #############################################
-###################################################################
+#####################################################################
+###### cassave Target ###########################################
+#####################################################################
 
-set(V8_TEST_TARGET "v8_test")
-set(V8_TEST_SOURCE "${SOURCE_DIR}/v8_test")
+set(NATIVE_TEST_TARGET "cassave")
+set(NATIVE_TEST_SOURCE "${SOURCE_DIR}")
 set(SOURCE_FILES
-	"${V8_TEST_SOURCE}/hello_world.cpp")
-
-add_executable(${V8_TEST_TARGET} ${SOURCE_FILES})
-set_target_properties(${V8_TEST_TARGET} 
-	PROPERTIES 
-	CXX_STANDARD 11
-	RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
-
-file(GLOB SNAPSHOT_BINS "${CMAKE_CURRENT_LIST_DIR}/deps/v8/out/x64.release/*.bin")
-file(COPY ${SNAPSHOT_BINS} DESTINATION ${OUTPUT_DIR})
-
-target_link_libraries(${V8_TEST_TARGET} 
-	"-Wl,--start-group"
-	"${V8_LIB}/libv8_base.a" 
-	"${V8_LIB}/libv8_libbase.a"
-	"${V8_LIB}/libv8_external_snapshot.a"
-	"${V8_LIB}/libv8_libplatform.a"
-	"${ICU_LIB}/libicuuc.a"
-	"${ICU_LIB}/libicui18n.a"
-	"${ICU_LIB}/libicudata.a"
-	"-Wl,--end-group"
-	"dl"
-    "rt"
-	"pthread")
-
-
-#####################################################################
-###### native_test Target ###########################################
-#####################################################################
-
-set(NATIVE_TEST_TARGET "native_test")
-set(NATIVE_TEST_SOURCE "${SOURCE_DIR}/native_test")
-set(SOURCE_FILES 
-	"${NATIVE_TEST_SOURCE}/native_test.cpp"
+	"${NATIVE_TEST_SOURCE}/cassave.cpp"
 	"${NATIVE_TEST_SOURCE}/array_buff_alloc.cpp"
 	"${NATIVE_TEST_SOURCE}/util_methods.cpp"
 	"${NATIVE_TEST_SOURCE}/option_parser.cpp"
@@ -64,8 +31,8 @@ set(SOURCE_FILES
 	"${NATIVE_TEST_SOURCE}/v8_methods.cpp")
 
 add_executable(${NATIVE_TEST_TARGET} ${SOURCE_FILES})
-set_target_properties(${NATIVE_TEST_TARGET} 
-	PROPERTIES 
+set_target_properties(${NATIVE_TEST_TARGET}
+	PROPERTIES
 	CXX_STANDARD 11
 	RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 
@@ -88,9 +55,9 @@ if (APPLE)
     "pthread"
     "dl")
 else()
-    target_link_libraries(${NATIVE_TEST_TARGET} 
+    target_link_libraries(${NATIVE_TEST_TARGET}
 	"-Wl,--start-group"
-	"${V8_LIB}/libv8_base.a" 
+	"${V8_LIB}/libv8_base.a"
 	"${V8_LIB}/libv8_libbase.a"
 	"${V8_LIB}/libv8_external_snapshot.a"
 	"${V8_LIB}/libv8_libplatform.a"
