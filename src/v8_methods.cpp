@@ -30,11 +30,6 @@ Isolate* create_isolate() {
 Local<Context> create_context(Isolate *isolate) {
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
 
-    // add print function
-    Local<String> func_name = String::NewFromUtf8(isolate, "print", NewStringType::kNormal)
-            .ToLocalChecked();
-    Local<FunctionTemplate> print_tmpl = FunctionTemplate::New(isolate, Print);
-
     // set global methods
     global->Set(isolate, "print", FunctionTemplate::New(isolate, Print));
     global->Set(isolate, "printl", FunctionTemplate::New(isolate, PrintL));

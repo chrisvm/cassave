@@ -11,9 +11,17 @@ using namespace std;
 
 
 // methods
-MaybeLocal<String> to_v8_string(Isolate *isolate, char *c_str, int length);
+MaybeLocal<String> to_v8_string(
+		Isolate *isolate,
+		char *c_str,
+		int length);
 void ReportException(Isolate* isolate, TryCatch* try_catch);
-bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
+bool ExecuteString(
+		Isolate* isolate,
+		Local<String> source,
+		Local<Value> name,
+		bool print_result,
+		bool report_exceptions);
 
 int main(int argc, char* argv[]) {
 
@@ -29,7 +37,8 @@ int main(int argc, char* argv[]) {
 
         // read script
         int length;
-        char *script_source = UtilMethods::fileToBuffer(parser.script(), length);
+        char *script_source =
+				UtilMethods::fileToBuffer(parser.script(), length);
 
         // if error openning file, exit
         if (script_source == NULL) {
@@ -67,10 +76,17 @@ int main(int argc, char* argv[]) {
 
             // convert to v8 string
             Local<String> string_source;
-            if (to_v8_string(isolate, script_source, length).ToLocal(&string_source)) {
+            if (to_v8_string(isolate, script_source, length)
+					.ToLocal(&string_source)) {
+
                 // execute script
-                Local<String> script_name = String::NewFromUtf8(isolate, parser.script());
-                bool success = ExecuteString(isolate, string_source, script_name, false, true);
+                Local<String> script_name = String::NewFromUtf8(
+						isolate, parser.script());
+                bool success = ExecuteString(
+						isolate,
+						string_source,
+						script_name,
+						false, true);
 
                 while (platform::PumpMessageLoop(platform, isolate))
                     continue;
@@ -101,11 +117,21 @@ MaybeLocal<String> to_v8_string(Isolate *isolate, char *c_str, int length) {
     }
 
     // return string
-    return String::NewFromUtf8(isolate, c_str, NewStringType::kNormal, static_cast<int>(length));
+    return String::NewFromUtf8(
+			isolate,
+			c_str,
+			NewStringType::kNormal,
+			static_cast<int>(length));
 }
 
-bool ExecuteString(Isolate* isolate, Local<String> source, Local<Value> name, bool print_result, bool report_exceptions) {
-    TryCatch try_catch(isolate);
+bool ExecuteString(
+		Isolate* isolate,
+		Local<String> source,
+		Local<Value> name,
+		bool print_result,
+		bool report_exceptions) {
+
+	TryCatch try_catch(isolate);
     ScriptOrigin origin(name);
     Local<Context> context(isolate->GetCurrentContext());
     Local<Script> script;
@@ -152,7 +178,10 @@ void ReportException(Isolate* isolate, TryCatch* try_catch) {
         Local<Context> context(isolate->GetCurrentContext());
         const char* filename_string = UtilMethods::ToCString(filename);
         int linenum = message->GetLineNumber(context).FromJust();
-        fprintf(stderr, "%s:%i: %s\n", filename_string, linenum, exception_string);
+        fprintf(stderr, "%s:%i: %s\n",
+				filename_string,
+				linenum,
+				exception_string);
 
         // Print line of source code.
         String::Utf8Value sourceline(
@@ -175,7 +204,8 @@ void ReportException(Isolate* isolate, TryCatch* try_catch) {
             stack_trace_string->IsString() &&
             Local<String>::Cast(stack_trace_string)->Length() > 0) {
             String::Utf8Value stack_trace(stack_trace_string);
-            const char* stack_trace_string = UtilMethods::ToCString(stack_trace);
+            const char* stack_trace_string =
+					UtilMethods::ToCString(stack_trace);
             fprintf(stderr, "%s\n", stack_trace_string);
         }
     }
