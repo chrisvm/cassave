@@ -1,4 +1,5 @@
 "use strict";
+print(process);
 
 class SayHello {
     constructor(name) {
@@ -6,7 +7,7 @@ class SayHello {
     }
 
     say_hello() {
-        printf("Hello, %!\n", this.name);
+        writef("Hello, %!\n", this.name);
     }
 }
 

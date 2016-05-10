@@ -17,9 +17,8 @@
 using namespace v8;
 using namespace std;
 
-void Print(const FunctionCallbackInfo<Value>& args);
-void PrintL(const FunctionCallbackInfo<Value>& args);
-void PrintFormat(const FunctionCallbackInfo<Value>& args);
-void Require(const FunctionCallbackInfo<Value>& args);
+static void Print(const FunctionCallbackInfo<Value>& args);
+static void PrintL(const FunctionCallbackInfo<Value>& args);
+static void PrintFormat(const FunctionCallbackInfo<Value>& args);
 
 #endif //CASSAVE_JS_GLOBAL_FUNCS_H
