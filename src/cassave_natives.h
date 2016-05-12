@@ -6,9 +6,20 @@
 using namespace std;
 using namespace v8;
 
+struct ModuleSource {
+	char* name;
+	char*[] source;
+
+	ModuleSource(char* name, char*[] source) {
+		this->name = name;
+		this->source = source;
+	}
+};
+
 class Natives {
 public:
-	static void GetNatives(const FunctionCallbackInfo<Value>& args);
+	// get natives to
+	static void GetBindings(const FunctionCallbackInfo<Value>& args);
 	static const char*[] NativeList();
 };
 #endif

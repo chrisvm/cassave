@@ -40,8 +40,8 @@ Local<Context> create_context(Isolate *isolate) {
 	// set global process object
 	Local<ObjectTemplate> process = ObjectTemplate::New(isolate);
 	process->Set(isolate,
-			"natives",
-			FunctionTemplate::New(isolate, GetNatives));
+			"bindings",
+			FunctionTemplate::New(isolate, GetBindings));
 	global->Set(isolate, "process", process);
 
 	return Context::New(isolate, NULL, global);
