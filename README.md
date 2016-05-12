@@ -10,7 +10,21 @@ API for Graphics/Physics/Sound systems and deploy to web and native desktop engi
 clients.
 
 
+ROADMAP
+-------
+
+Right now it's barely a real interpreter, let alone an engine. In the momment the module system 
+is being written. Basically it will be a stripped-down version of node.js's module system. After
+that the basic internal library will be written (GLFW, GLM and Box2d bindings).
+
+
+Dependencies
+------------
+
+- v8
+- c++14 able compiler
+
 Building
 --------
 
-Todo: finish this section
+todo: finish this section 
