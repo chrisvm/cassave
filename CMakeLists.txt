@@ -28,7 +28,14 @@ set(SOURCE_FILES
 	"${NATIVE_TEST_SOURCE}/util_methods.cpp"
 	"${NATIVE_TEST_SOURCE}/option_parser.cpp"
 	"${NATIVE_TEST_SOURCE}/global_funcs.cpp"
-	"${NATIVE_TEST_SOURCE}/v8_methods.cpp")
+	"${NATIVE_TEST_SOURCE}/v8_methods.cpp"
+		src/native_binding.h
+		src/native_binding.cpp
+		src/cassave_io.h
+		src/cassave_io.cpp
+        src/cassave_natives.cpp
+        src/cassave_natives.h
+        src/native_require.cpp)
 
 add_executable(${NATIVE_TEST_TARGET} ${SOURCE_FILES})
 set_target_properties(${NATIVE_TEST_TARGET}
