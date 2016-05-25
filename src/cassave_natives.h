@@ -8,9 +8,9 @@ using namespace v8;
 
 struct ModuleSource {
 	char* name;
-	char*[] source;
+	char** source;
 
-	ModuleSource(char* name, char*[] source) {
+	ModuleSource(char* name, char** source) {
 		this->name = name;
 		this->source = source;
 	}
@@ -20,6 +20,6 @@ class Natives {
 public:
 	// get natives to
 	static void GetBindings(const FunctionCallbackInfo<Value>& args);
-	static const char*[] NativeList();
+	static const char** NativeList();
 };
 #endif
