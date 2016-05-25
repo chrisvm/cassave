@@ -174,9 +174,8 @@ def ReadMacros(lines):
 
 
 HEADER_TEMPLATE = """\
-#ifndef node_natives_h
-#define node_natives_h
-namespace node {
+#ifndef cassave_lib_h
+#define cassave_lib_h
 
 %(source_lines)s\
 
@@ -188,7 +187,6 @@ struct _native {
 
 static const struct _native natives[] = { %(native_lines)s };
 
-}
 #endif
 """
 
