@@ -2,23 +2,25 @@
 
 
 /**
- * Get the source code of the bindings given by param
- * @param args FunctionCallbackInfo - the type of bindig to get
- * @return ModuleSource[] - array with sourcode structs
+ * Checks if a js module is defined with name moduleName, a c-string
  */
-void Natives::GetBindings(const FunctionCallbackInfo<Value>& args) {
-	// get first argument as string
-	Local<String> module = args[0]->ToString(args.GetIsolate());
+int CassaveNatives::searchForModule(char* moduleName) {
+    // size of the natives modules array
+    size_t nativeSize = sizeof(natives);
 
-	
-}
+    // look for module in natives array
+    _native* mod;
+    for (int index = 0; index < nativeSize; ++index) {
+        // get module
+        mod = &natives[index];
 
-/**
- * Get listing of all native modules
- * @return char*[] - an array with the structure {module_name, module_path, ...}
- */
-const char*[] Natives::NativeList() {
-	const char*[] = {
-		""
-	};
+        // compare module names
+        if (strcmp(mod->name, moduleName) == 0) {
+            // found a module with name moduleName
+            return index;
+        }
+    }
+
+    // not found
+    return -1;
 }

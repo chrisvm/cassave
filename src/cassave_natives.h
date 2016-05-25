@@ -3,23 +3,36 @@
 #include <include/v8.h>
 #include <include/libplatform/libplatform.h>
 #include <vector>
+#include "cassave_lib.h"
+#include <cstring>
 using namespace std;
 using namespace v8;
 
-struct ModuleSource {
-	char* name;
-	char** source;
+/**
+cassave_lib.h declares a _native struct like this:
 
-	ModuleSource(char* name, char** source) {
-		this->name = name;
-		this->source = source;
-	}
-};
+    struct _native {
+        const char* name;
+        const unsigned char* source;
+        size_t source_len;
+    };
 
-class Natives {
+This is declared auto by running the script tools/js2c.py. cassave_lib.h
+also declares an array as follows:
+
+    static const _native natives[] = { ... };
+
+cassave_natives.cpp/h are implement a set of methods that check containment
+of a native js module in cassave_lib.h.
+*/
+
+class CassaveNatives {
 public:
-	// get natives to
-	static void GetBindings(const FunctionCallbackInfo<Value>& args);
-	static const char** NativeList();
+
+    /**
+     * Checks if a js module is defined with name moduleName, a c-string
+     */
+    static int searchForModule(char* moduleName);
+
 };
 #endif
