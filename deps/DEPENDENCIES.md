@@ -30,7 +30,7 @@ After that, all that is needed is to export to path the location of that dir. Th
 .bashrc file (or similar) is generally sufficient:
 
     # export to PATH var
-    echo 'export PATH=~/depot_tools/depot_tools:"$PATH"' >> ~/.bash_profile
+    echo 'export PATH=~/.depot_tools/depot_tools:"$PATH"' >> ~/.bash_profile
 
 
 ##### v8 source
