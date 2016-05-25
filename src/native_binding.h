@@ -7,7 +7,9 @@
 
 
 class NativeBinding {
-
+public:
+    virtual char* getName()=0;
+    static virtual void* getInstance()=0;
 };
 
 
