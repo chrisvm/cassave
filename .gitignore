@@ -2,6 +2,5 @@
 build/**
 !build/BUILDING.md
 
-deps/v8
-deps/.gclient_entries
-deps/.gclient
+deps/**
+!deps/DEPENDENCIES.md
