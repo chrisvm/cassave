@@ -1,8 +1,14 @@
-static void Write(const FunctionCallbackInfo<Value>& args);
-static void Print(const FunctionCallbackInfo<Value>& args);
-static void WriteF(const FunctionCallbackInfo<Value>& args);
+#include "cassave_io.h"
 
-void Write(const FunctionCallbackInfo<Value>& args) {
+char* IONativeBinding::getName() {
+    return "io";
+}
+
+void* IONativeBinding::getInstance() {
+    return (void*) new IONativeBinding();
+}
+
+void IONativeBinding::Write(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     for (int i = 0; i < args.Length(); i++) {
         HandleScope handle_scope(args.GetIsolate());
@@ -20,7 +26,7 @@ void Write(const FunctionCallbackInfo<Value>& args) {
     fflush(stdout);
 }
 
-void Print(const FunctionCallbackInfo<Value>& args) {
+void IONativeBinding::Print(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     for (int i = 0; i < args.Length(); i++) {
         HandleScope handle_scope(args.GetIsolate());
@@ -39,7 +45,7 @@ void Print(const FunctionCallbackInfo<Value>& args) {
     fflush(stdout);
 }
 
-void WriteF(const FunctionCallbackInfo<Value>& args) {
+void IONativeBinding::WriteF(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     string format;
 
