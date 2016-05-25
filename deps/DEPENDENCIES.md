@@ -49,6 +49,6 @@ After depot_tools are installed, change into cassave/deps dir and fetch de repo
     # sync all depends
     gclient sync
 
-    # build v8 files (parameter for 2 cores pc's, adjust to your specs)
+    # build v8 files ("-j 2" parameter for a 2 core pc, adjust to your specs)
     make x64.release -j 2
 
