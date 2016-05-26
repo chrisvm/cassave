@@ -214,7 +214,7 @@ GET_DELAY_SCRIPT_NAME_CASE = """\
     if (index == %(i)i) return Vector<const char>("%(name)s", %(length)i);
 """
 
-def JS2C(source, target):
+def   JS2C(source, target):
   ids = []
   delay_ids = []
   modules = []
