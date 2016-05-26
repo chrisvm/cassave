@@ -23,11 +23,6 @@ bool ExecuteString(
 		bool print_result,
 		bool report_exceptions);
 
-// native module instances instances
-struct NativeModules {
-	
-};
-
 int main(int argc, char* argv[]) {
 
     // check for options
