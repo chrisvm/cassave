@@ -33,15 +33,14 @@ Local<Context> create_context(Isolate *isolate) {
     // set global methods
     global->Set(isolate, "write", FunctionTemplate::New(isolate, Print));
     global->Set(isolate, "print", FunctionTemplate::New(isolate, PrintL));
-    global->Set(isolate,
-			"writef",
-			FunctionTemplate::New(isolate, PrintFormat));
+    global->Set(isolate, "writef", FunctionTemplate::New(isolate, PrintFormat));
 
 	// set global process object
 	Local<ObjectTemplate> process = ObjectTemplate::New(isolate);
-	process->Set(isolate,
-			"bindings",
-			FunctionTemplate::New(isolate, GetBindings));
+
+//    process->Set(isolate,
+//			"bindings",
+//			FunctionTemplate::New(isolate, GetBindings));
 	global->Set(isolate, "process", process);
 
 	return Context::New(isolate, NULL, global);
