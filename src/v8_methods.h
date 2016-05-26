@@ -16,7 +16,4 @@ void deinit(Platform *&platform);
 Isolate* create_isolate();
 Local<Context> create_context(Isolate *isolate);
 
-
-
-
 #endif

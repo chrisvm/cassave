@@ -1,9 +1,9 @@
-#include "./global_funcs.h"
+#include "global_funcs.h"
 using namespace v8;
 using namespace std;
 
 
-void Print(const FunctionCallbackInfo<Value>& args) {
+static void Print(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     for (int i = 0; i < args.Length(); i++) {
         HandleScope handle_scope(args.GetIsolate());
@@ -21,7 +21,7 @@ void Print(const FunctionCallbackInfo<Value>& args) {
     fflush(stdout);
 }
 
-void PrintL(const FunctionCallbackInfo<Value>& args) {
+static void PrintL(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     for (int i = 0; i < args.Length(); i++) {
         HandleScope handle_scope(args.GetIsolate());
@@ -40,7 +40,7 @@ void PrintL(const FunctionCallbackInfo<Value>& args) {
     fflush(stdout);
 }
 
-void PrintFormat(const FunctionCallbackInfo<Value>& args) {
+static void PrintFormat(const FunctionCallbackInfo<Value>& args) {
     bool first = true;
     string format;
 
@@ -70,6 +70,7 @@ void PrintFormat(const FunctionCallbackInfo<Value>& args) {
         char at = format[i];
         switch (at) {
             case '%':
+                // if followed by another
                 if (format[i + 1] == '%') {
                     printf("%c", '%');
                     i += 1;

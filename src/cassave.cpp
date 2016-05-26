@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
-
 #include <include/libplatform/libplatform.h>
 #include <include/v8.h>
 #include "v8_methods.h"
-#include "./option_parser.h"
+#include "option_parser.h"
 
 using namespace v8;
 using namespace std;
