@@ -9,7 +9,7 @@ int CassaveNatives::searchForModule(char* moduleName) {
     size_t nativeSize = sizeof(natives);
 
     // look for module in natives array
-    _native* mod;
+    const _native* mod;
     for (int index = 0; index < nativeSize; ++index) {
         // get module
         mod = &natives[index];

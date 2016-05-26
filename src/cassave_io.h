@@ -6,14 +6,16 @@
 #define CASSAVE_JS_CASSAVE_IO_H_H
 #include <include/v8.h>
 #include <include/libplatform/libplatform.h>
+#include <list>
 #include "native_binding.h"
+#include "util_methods.h"
 using namespace std;
 using namespace v8;
 
 class IONativeBinding : public NativeBinding {
 public:
     char* getName();
-    static void getInstance();
+    static void* getInstance();
 
     static void Write(const FunctionCallbackInfo<Value>& args);
     static void Print(const FunctionCallbackInfo<Value>& args);
