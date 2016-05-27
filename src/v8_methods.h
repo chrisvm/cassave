@@ -14,6 +14,7 @@ using namespace std;
 Platform* init(int argc, char* argv[]);
 void deinit(Platform *&platform);
 Isolate* create_isolate();
+static void Binding(const FunctionCallbackInfo<Value>& args);
 Local<Context> create_context(Isolate *isolate);
 
 #endif

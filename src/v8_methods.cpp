@@ -38,10 +38,15 @@ Local<Context> create_context(Isolate *isolate) {
 	// set global process object
 	Local<ObjectTemplate> process = ObjectTemplate::New(isolate);
 
-//    process->Set(isolate,
-//			"bindings",
-//			FunctionTemplate::New(isolate, GetBindings));
+    // set process.binding function
+    process->Set(isolate, "binding", FunctionTemplate::New(isolate, Binding));
+
+    // add process object to global namespace
 	global->Set(isolate, "process", process);
 
 	return Context::New(isolate, NULL, global);
+}
+
+static void Binding(const FunctionCallbackInfo<Value>& args) {
+
 }

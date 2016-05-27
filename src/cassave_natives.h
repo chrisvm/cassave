@@ -34,5 +34,9 @@ public:
      */
     static int searchForModule(char* moduleName);
 
+    /**
+     * Defines all the js modules in javascript strings
+     */
+    static void defineJavascriptSource(Isolate *isolate, Local<Object> target);
 };
 #endif

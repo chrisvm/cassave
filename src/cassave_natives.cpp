@@ -24,3 +24,28 @@ int CassaveNatives::searchForModule(char* moduleName) {
     // not found
     return -1;
 }
+
+/**
+ * Sets to target all the modules packaged with the cassave binary
+ */
+static void defineJavascriptSource(Isolate *isolate, Local<Object> target) {
+    // a new scope for all the handles well create
+    HandleScope scope(isolate);
+
+    // iterate all the native modules in natives array
+    for (auto module : natives) {
+        // the name of the module
+        Local<String> name = String::NewFromUtf8(isolate, module.name);
+
+        // the actual js source in a js string
+        Local<String> source = String::NewFromUtf8(
+                isolate,
+                reinterpret_cast<const char*>(module.source),
+                NewStringType::kNormal,
+                module.source_len
+        ).ToLocalChecked();
+
+        // set target.<module.name> = <module.source>
+        target->Set(name, source);
+    }
+}
