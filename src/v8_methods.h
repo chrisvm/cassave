@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include "global_funcs.h"
+#include "cassave_io.h"
 #include "array_buff_alloc.h"
 using namespace v8;
 using namespace std;
