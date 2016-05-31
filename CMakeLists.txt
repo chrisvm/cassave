@@ -46,13 +46,15 @@ set(SOURCE_FILES
         "${NATIVE_TEST_SOURCE}/option_parser.cpp"
         "${NATIVE_TEST_SOURCE}/global_funcs.cpp"
         "${NATIVE_TEST_SOURCE}/v8_methods.cpp"
-        "${NATIVE_TEST_SOURCE}/native_binding.h"
-        "${NATIVE_TEST_SOURCE}/native_binding.cpp"
         "${NATIVE_TEST_SOURCE}/cassave_io.h"
         "${NATIVE_TEST_SOURCE}/cassave_io.cpp"
         "${NATIVE_TEST_SOURCE}/cassave_natives.cpp"
         "${NATIVE_TEST_SOURCE}/cassave_natives.h"
-        "${NATIVE_TEST_SOURCE}/native_require.cpp")
+        "${NATIVE_TEST_SOURCE}/native_require.cpp"
+        "${NATIVE_TEST_SOURCE}/subs_manager.h"
+		"${NATIVE_TEST_SOURCE}/subs_manager.cpp"
+        "${NATIVE_TEST_SOURCE}/native_binding.h"
+        "${NATIVE_TEST_SOURCE}/native_binding.cpp")
 
 add_executable(${NATIVE_TEST_TARGET} ${SOURCE_FILES})
 add_dependencies(${NATIVE_TEST_TARGET} cassave_lib)
