@@ -28,7 +28,7 @@ int CassaveNatives::searchForModule(char* moduleName) {
 /**
  * Sets to target all the modules packaged with the cassave binary
  */
-static void defineJavascriptSource(Isolate *isolate, Local<Object> target) {
+void CassaveNatives::defineJavascriptSource(Isolate *isolate, Local<Object> target) {
     // a new scope for all the handles well create
     HandleScope scope(isolate);
 

@@ -5,16 +5,24 @@ function test_process_binding() {
     io.print(process.binding);
 
     // call with no params
-    io.print("\nprocess() - no params");
+    print_header("process() - no params");
     io.print(process.binding());
 
     // call with io param
-    io.print("\nprocess(\"io\") call");
+    print_header("process(\"io\") call");
     io.print(process.binding("io"));
 
     // call with natives param
-    io.print("\nprocess(\"natives\") call");
-    io.print(process.binding("natives"));
+    print_header("process(\"natives\") call");
+    var natives = process.binding("natives");
+    io.print("natives: " + natives);
+
+    // view all natives values
+    print_header("natives.values");
+    for (var nat in natives) {
+        io.print("natives." + nat);
+        io.print(natives[nat]);
+    }
 }
 
 function print_header(text) {

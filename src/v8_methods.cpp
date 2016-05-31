@@ -30,11 +30,6 @@ Isolate* create_isolate() {
 Local<Context> create_context(Isolate *isolate) {
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
 
-    // set global methods
-//    global->Set(isolate, "write", FunctionTemplate::New(isolate, IONativeBinding::Write));
-//    global->Set(isolate, "print", FunctionTemplate::New(isolate, IONativeBinding::Print));
-//    global->Set(isolate, "writef", FunctionTemplate::New(isolate, IONativeBinding::WriteF));
-
 	// set global process object
 	Local<ObjectTemplate> process = ObjectTemplate::New(isolate);
 
@@ -77,6 +72,8 @@ static void Binding(const FunctionCallbackInfo<Value>& args) {
         manager.setBinding((char*)c_mod_name.c_str(), isolate, exports);
     } else if (c_mod_name == "natives") {
         // return an object with all bundled js source
+        exports = Object::New(isolate);
+        CassaveNatives::defineJavascriptSource(isolate, exports);
     }
 
     // set a return val
