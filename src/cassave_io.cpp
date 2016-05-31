@@ -1,11 +1,13 @@
 #include "cassave_io.h"
 
 char* IONativeBinding::getName() {
-    return "io";
+    char* ret = new char[3];
+    ret = "io\0";
+    return ret;
 }
 
-void* IONativeBinding::getInstance() {
-    return (void*) new IONativeBinding();
+void IONativeBinding::setTarget(Isolate *isolate, Local<Object> target) {
+
 }
 
 void IONativeBinding::Write(const FunctionCallbackInfo<Value>& args) {

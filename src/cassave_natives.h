@@ -2,7 +2,7 @@
 #define CASSAVE_NATIVES_H
 #include <include/v8.h>
 #include <include/libplatform/libplatform.h>
-#include <vector>
+#include <list>
 #include "cassave_lib.h"
 #include <cstring>
 using namespace std;
@@ -38,5 +38,9 @@ public:
      * Defines all the js modules in javascript strings
      */
     static void defineJavascriptSource(Isolate *isolate, Local<Object> target);
+
+    /**
+     * Create a list of all native bindings
+     */
 };
 #endif

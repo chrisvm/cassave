@@ -48,5 +48,15 @@ Local<Context> create_context(Isolate *isolate) {
 }
 
 static void Binding(const FunctionCallbackInfo<Value>& args) {
+    // isolate from args
+    Isolate *isolate = args.GetIsolate();
 
+    // get name of module
+    Local<String> mod_name = args[0]->ToString(isolate);
+
+    // exports is the object that is returned by the call to binding
+    Local<Object> exports;
+
+    // if native binding name, return that
+    int index;
 }
