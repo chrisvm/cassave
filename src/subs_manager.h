@@ -12,7 +12,6 @@ using namespace v8;
 using namespace std;
 
 class SubsManager {
-    ModuleSubs subs_;
     NativeBinding *bindings_[1];
 public:
     SubsManager();

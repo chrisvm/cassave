@@ -1,9 +1,7 @@
 #include "cassave_io.h"
 
 char* IONativeBinding::getName() {
-    char* ret = new char[3];
-    ret = "io\0";
-    return ret;
+    return (char*)"io";
 }
 
 void IONativeBinding::setTarget(Isolate *isolate, Local<Object> target) {

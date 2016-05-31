@@ -14,8 +14,9 @@ using namespace v8;
 
 class IONativeBinding : public NativeBinding {
 public:
-    char* getName();
-    void setTarget(Isolate *isolate, Local<Object> target);
+
+    virtual char* getName();
+    virtual void setTarget(Isolate *isolate, Local<Object> target);
 
     static void Write(const FunctionCallbackInfo<Value>& args);
     static void Print(const FunctionCallbackInfo<Value>& args);

@@ -5,7 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include "subs_manager.h"
 #include "cassave_io.h"
+#include "cassave_natives.h"
+#include "util_methods.h"
 #include "array_buff_alloc.h"
 using namespace v8;
 using namespace std;
@@ -14,7 +17,7 @@ using namespace std;
 Platform* init(int argc, char* argv[]);
 void deinit(Platform *&platform);
 Isolate* create_isolate();
-static void Binding(const FunctionCallbackInfo<Value>& args);
 Local<Context> create_context(Isolate *isolate);
 
+static void Binding(const FunctionCallbackInfo<Value>& args);
 #endif

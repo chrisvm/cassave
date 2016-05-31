@@ -7,7 +7,7 @@
 SubsManager::SubsManager() {
     // create all bindings
     // io
-    IONativeBinding *io_binding = new IONativeBinding(&subs_);
+    IONativeBinding *io_binding = new IONativeBinding();
     bindings_[0] = io_binding;
 }
 

@@ -48,15 +48,37 @@ Local<Context> create_context(Isolate *isolate) {
 }
 
 static void Binding(const FunctionCallbackInfo<Value>& args) {
+    // check  # of args
+    if (args.Length() < 1) {
+        return;
+    }
+
     // isolate from args
     Isolate *isolate = args.GetIsolate();
 
     // get name of module
-    Local<String> mod_name = args[0]->ToString(isolate);
+    String::Utf8Value mod_name(args[0]->ToString());
 
     // exports is the object that is returned by the call to binding
     Local<Object> exports;
 
+    // get string
+    string c_mod_name(*mod_name);
+
+    // search for module
+    SubsManager manager;
+
     // if native binding name, return that
-    int index;
+    if (manager.hasSub((char*)c_mod_name.c_str())) {
+        // create new object to pass to the subscribed module func
+        exports = Object::New(isolate);
+
+        // pass to subscribed func
+        manager.setBinding((char*)c_mod_name.c_str(), isolate, exports);
+    } else if (c_mod_name == "natives") {
+        // return an object with all bundled js source
+    }
+
+    // set a return val
+    args.GetReturnValue().Set(exports);
 }
