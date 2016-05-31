@@ -1,18 +1,20 @@
+io = process.binding("io");
+
 // test process.binding
 function test_process_binding() {
-    print(process.binding);
+    io.print(process.binding);
 
     // call with no params
-    print("\nprocess() - no params");
-    print(process.binding());
+    io.print("\nprocess() - no params");
+    io.print(process.binding());
 
     // call with io param
-    print("\nprocess(\"io\") call");
-    print(process.binding("io"));
+    io.print("\nprocess(\"io\") call");
+    io.print(process.binding("io"));
 
     // call with natives param
-    print("\nprocess(\"natives\") call");
-    print(process.binding("natives"));
+    io.print("\nprocess(\"natives\") call");
+    io.print(process.binding("natives"));
 }
 
 function print_header(text) {
@@ -24,7 +26,7 @@ function print_header(text) {
 
     header += ' ' + text + ' ' + header;
 
-    print(header);
+    io.print(header);
 }
 
 (function () {

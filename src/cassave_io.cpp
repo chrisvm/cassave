@@ -5,7 +5,13 @@ char* IONativeBinding::getName() {
 }
 
 void IONativeBinding::setTarget(Isolate *isolate, Local<Object> target) {
-
+    // set bindings
+    target->Set(String::NewFromUtf8(isolate, "write"), FunctionTemplate::New(isolate, IONativeBinding::Write)
+            ->GetFunction());
+    target->Set(String::NewFromUtf8(isolate, "print"), FunctionTemplate::New(isolate, IONativeBinding::Print)
+            ->GetFunction());
+    target->Set(String::NewFromUtf8(isolate, "writef"), FunctionTemplate::New(isolate, IONativeBinding::WriteF)
+            ->GetFunction());
 }
 
 void IONativeBinding::Write(const FunctionCallbackInfo<Value>& args) {

@@ -31,9 +31,9 @@ Local<Context> create_context(Isolate *isolate) {
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
 
     // set global methods
-    global->Set(isolate, "write", FunctionTemplate::New(isolate, IONativeBinding::Write));
-    global->Set(isolate, "print", FunctionTemplate::New(isolate, IONativeBinding::Print));
-    global->Set(isolate, "writef", FunctionTemplate::New(isolate, IONativeBinding::WriteF));
+//    global->Set(isolate, "write", FunctionTemplate::New(isolate, IONativeBinding::Write));
+//    global->Set(isolate, "print", FunctionTemplate::New(isolate, IONativeBinding::Print));
+//    global->Set(isolate, "writef", FunctionTemplate::New(isolate, IONativeBinding::WriteF));
 
 	// set global process object
 	Local<ObjectTemplate> process = ObjectTemplate::New(isolate);
